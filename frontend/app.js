@@ -25,7 +25,12 @@ async function loadEntries() {
   thisMonth.forEach(e => {
     const div = document.createElement('div');
     div.className = 'entry';
-    div.innerHTML = `<strong>${new Date(e.date).toLocaleDateString()}</strong> Mood: ${e.mood}<br>${e.content}`;
+    div.innerHTML = `<strong>${new Date(e.date).toLocaleDateString()}</strong> ` +
+      `Mood: ${e.mood}, Energy: ${e.energy}, Stress: ${e.stress}` +
+      (e.sleep ? `, Sleep: ${e.sleep}` : '') +
+      (e.anxiety ? `, Anxiety: ${e.anxiety}` : '') +
+      `<br>${e.content}` +
+      (e.notes ? `<br><em>${e.notes}</em>` : '');
     list.appendChild(div);
   });
 }
@@ -59,7 +64,10 @@ document.getElementById('entry-form').addEventListener('submit', async e => {
     content: document.getElementById('content').value,
     mood: parseInt(document.getElementById('mood').value, 10),
     energy: parseInt(document.getElementById('energy').value, 10),
-    stress: parseInt(document.getElementById('stress').value, 10)
+    stress: parseInt(document.getElementById('stress').value, 10),
+    sleep: parseInt(document.getElementById('sleep').value, 10) || null,
+    anxiety: parseInt(document.getElementById('anxiety').value, 10) || null,
+    notes: document.getElementById('notes').value
   };
   await fetch(`${API_URL}/entries`, {
     method: 'POST',
