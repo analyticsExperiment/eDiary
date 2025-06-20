@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>eDiary</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #4b79a1; color: white; padding: 1rem; text-align: center; }
+    nav button { margin: 0.5rem; padding: 0.5rem 1rem; }
+    #entry-list { margin-top: 1rem; }
+    #chart { width: 100%; height: 300px; }
+    section { padding: 1rem; display: none; }
+    section.active { display: block; }
+    .entry { border-bottom: 1px solid #ccc; padding: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>eDiary</h1>
+    <nav>
+      <button id="journalBtn">Journal</button>
+      <button id="analyticsBtn">Analytics</button>
+    </nav>
+  </header>
+
+  <section id="journal" class="active">
+    <h2>New Entry</h2>
+    <form id="entry-form">
+      <textarea id="content" placeholder="How was your day?" rows="4" cols="50" required></textarea><br>
+      Mood (1-5): <input type="number" id="mood" min="1" max="5" required><br>
+      Energy (1-5): <input type="number" id="energy" min="1" max="5" required><br>
+      Stress (1-5): <input type="number" id="stress" min="1" max="5" required><br>
+      <button type="submit">Save Entry</button>
+    </form>
+    <h2>Entries This Month</h2>
+    <div id="entry-list"></div>
+  </section>
+
+  <section id="analytics">
+    <h2>Mood Analytics</h2>
+    <canvas id="chart"></canvas>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
