@@ -23,14 +23,19 @@ function generateId(data) {
 function handleRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  if (req.method === 'GET' && !url.pathname.startsWith('/api/')) {
-    const relativePath = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
+  if ((req.method === 'GET' || req.method === 'HEAD') &&
+      (url.pathname === '/' || url.pathname.startsWith('/frontend/'))) {
+    const relativePath = url.pathname === '/' ? 'index.html' : url.pathname.replace('/frontend/', '');
     const filePath = path.join(__dirname, '../frontend', relativePath);
     if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
       const ext = path.extname(filePath);
       const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' };
       res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' });
-      fs.createReadStream(filePath).pipe(res);
+      if (req.method === 'GET') {
+        fs.createReadStream(filePath).pipe(res);
+      } else {
+        res.end();
+      }
     } else {
       res.writeHead(404);
       res.end('Not found');
