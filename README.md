@@ -8,8 +8,8 @@ This project contains a minimal example of an electronic diary application with 
 - Simple mood analytics chart over time.
 
 ## Running
-1. Start the backend server:
-   ```bash
-   node backend/server.js
-   ```
-2. Open `frontend/index.html` in your browser.
+Start the server and open the app in your browser:
+```bash
+node backend/server.js
+```
+Then visit `http://localhost:3000/`. The same server now provides both the API and the frontend.
