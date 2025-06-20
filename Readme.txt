@@ -1,0 +1,1 @@
+Create a eDiary app with beautiful interface with backend node.js and front end any good frameworks which will be good, it should have month based entries viewer, mood analyser, questions to analyse the mood/emotions while every entry, and an analytics page to know how emotions varied across the days. 
