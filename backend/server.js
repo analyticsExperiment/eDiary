@@ -23,8 +23,8 @@ function generateId(data) {
 function handleRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  if (req.method === 'GET' && (url.pathname === '/' || url.pathname.startsWith('/frontend/'))) {
-    const relativePath = url.pathname === '/' ? 'index.html' : url.pathname.replace('/frontend/', '');
+  if (req.method === 'GET' && !url.pathname.startsWith('/api/')) {
+    const relativePath = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
     const filePath = path.join(__dirname, '../frontend', relativePath);
     if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
       const ext = path.extname(filePath);
